@@ -6,7 +6,12 @@ interface iUrer {
   description: string
 }
 
-const fakeDataBase: any = []
+interface iBody {
+  name: string,
+  description: string
+}
+
+const fakeDataBase: iUrer[] = []
 
 @Injectable()
 export class AppService {
@@ -16,16 +21,16 @@ export class AppService {
     return fakeDataBase;
   }
 
-  postItem(obj: any): iUrer[] {
+  postItem(obj: iBody): iUrer[] {
     if (!obj.name || !obj.description) throw new Error('There are incomplete fields')
 
-    const newId = fakeDataBase.length === 0 ? 1 : fakeDataBase[fakeDataBase.length - 1].id + 1
+    const newId: number = fakeDataBase.length === 0 ? 1 : fakeDataBase[fakeDataBase.length - 1].id + 1
     fakeDataBase.push({ id: newId, ...obj })
 
     return fakeDataBase;
   }
 
-  putItem(id: string, obj: any): iUrer[] {
+  putItem(id: string, obj: iBody): iUrer[] {
     if (!obj.name || !obj.description) throw new Error('There are incomplete fields')
     if (fakeDataBase.findIndex(el => el.id === +id) === -1) throw new Error('Such ID does not exist')
 
@@ -33,7 +38,7 @@ export class AppService {
     if (indexEl !== -1) {
       fakeDataBase[indexEl] = { ...fakeDataBase[indexEl], ...obj };
     }
-    
+
     return fakeDataBase;
   }
 

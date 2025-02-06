@@ -8,6 +8,11 @@ interface iUrer {
   description: string
 }
 
+interface iBody {
+  name: string,
+  description: string
+}
+
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) { }
@@ -22,7 +27,7 @@ export class AppController {
   }
 
   @Post()
-  postItem(@Body() obj: any): iUrer[] | string {
+  postItem(@Body() obj: iBody): iUrer[] | string {
     try {
       return this.appService.postItem(obj);
     } catch (error) {
@@ -32,7 +37,7 @@ export class AppController {
   }
 
   @Put('/:id')
-  putItem(@Body() obj: any, @Param('id') id: string): iUrer[] | string {
+  putItem(@Body() obj:iBody, @Param('id') id: string): iUrer[] | string {
     try {
       return this.appService.putItem(id, obj);
     } catch (error) {
