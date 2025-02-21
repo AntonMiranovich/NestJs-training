@@ -28,6 +28,7 @@ export class AppService {
   }
 
   checkItem(obj: any): string {
+    if (!obj.username || !obj.password) throw new Error('There are incomplete fields')
     const checkUser = users.some((el) => el.username == obj.username && el.password == obj.password)
 
     return checkUser ? "Вход выполнен" : "Неверные данные";
